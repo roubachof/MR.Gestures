@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls.Compatibility.Hosting;
-
-using MR.Gestures.Handlers;
+﻿using MR.Gestures.Handlers;
 
 namespace MR.Gestures
 {

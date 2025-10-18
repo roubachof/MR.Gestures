@@ -6,12 +6,18 @@ namespace MR.Gestures.iOS.EventArgs
 	{
 		public static Rect GetViewPosition(UIView view)
 		{
+			if (view == null)
+				return Rect.Zero;
+
 			// algorithm from https://stackoverflow.com/a/58031897/1722408
 #pragma warning disable CA1416 // Validate platform compatibility
 			UIWindow window = UIDevice.CurrentDevice.CheckSystemVersion(13, 0)
 				? UIApplication.SharedApplication.ConnectedScenes.OfType<UIWindowScene>().SelectMany(s => s.Windows).FirstOrDefault(w => w.IsKeyWindow)
 				: UIApplication.SharedApplication.KeyWindow;
 #pragma warning restore CA1416 // Validate platform compatibility
+
+			if (window == null)
+				return new Rect(view.Frame.X, view.Frame.Y, view.Frame.Width, view.Frame.Height);
 
             var frame = view.ConvertRectToView(view.Bounds, window);
 			return new Rect(frame.X, frame.Y, frame.Width, frame.Height);

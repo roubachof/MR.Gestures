@@ -420,12 +420,12 @@ namespace MR.Gestures.iOS
 
 		private void OnLongPressed(UILongPressGestureRecognizer gr)
 		{
-			//Log("onLongPressed, state=" + gr.State);
+			//Debug.WriteLine("############ MRGESTURES :: onLongPressed, state=" + gr.State + ", position=" + iOSEventArgsHelper.GetViewPosition(gr.View));
 
 			if (!isVisible) return;                         // Views are reused for Cells, but this Cell is currently not visible
 
-			if (lastPanArgs != null)							// can probably also be configured when creating the gr
-				gr.State = UIGestureRecognizerState.Failed;     // if a pan has been started, then the UILongPressGestureRecognizer failed
+			//if (lastPanArgs != null)							// can probably also be configured when creating the gr
+			//	gr.State = UIGestureRecognizerState.Failed;     // if a pan has been started, then the UILongPressGestureRecognizer failed
 
 			if (gr.State == UIGestureRecognizerState.Ended || gr.State == UIGestureRecognizerState.Cancelled || gr.State == UIGestureRecognizerState.Failed)
 			{
@@ -486,6 +486,8 @@ namespace MR.Gestures.iOS
 			if (args.Touches.Length < 1)
 				return;										// MinimumNumberOfTouches == 1, but this is still sometimes called without touches
 
+			// Debug.WriteLine("############ MRGESTURES :: onPanned, state=" + gr.State + ", position=" + iOSEventArgsHelper.GetViewPosition(gr.View));
+
 			if (gr.State == UIGestureRecognizerState.Ended || gr.State == UIGestureRecognizerState.Cancelled || gr.State == UIGestureRecognizerState.Failed)
 			{
 				if(lastPanArgs == null) return;				// this gesture was too short to be raised - the finger probably only bounced
@@ -525,6 +527,8 @@ namespace MR.Gestures.iOS
 			{
 				if (!args.Equals(lastPanArgs) && element.GestureHandler.HandlesPanning)
 				{
+					// Debug.WriteLine("############ MRGESTURES :: onPanning called, handled=" + args.Handled);
+
 					listener.OnPanning(args);
 					gr.CancelsTouchesInView = args.Handled;
 				}
