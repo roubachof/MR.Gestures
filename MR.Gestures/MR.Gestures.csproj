@@ -36,7 +36,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.110" />
 	</ItemGroup>
 
 	<ItemGroup Condition="!$(TargetFramework.Contains('-android'))">
