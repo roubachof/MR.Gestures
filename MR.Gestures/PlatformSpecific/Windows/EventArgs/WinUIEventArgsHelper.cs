@@ -64,6 +64,15 @@ namespace MR.Gestures.WinUI.EventArgs
 			return new Point(winPoint.X, winPoint.Y);
 		}
 
+		public static Point TransformDistance(Windows.Foundation.Point distance, FrameworkElement view)
+		{
+			// Distances from ManipulationDelta need to be scaled to match view's coordinate space
+			var transform = view.GetRoot().TransformToVisual(view);
+			var origin = transform.TransformPoint(new Windows.Foundation.Point(0, 0));
+			var translated = transform.TransformPoint(distance);
+			return new Point(translated.X - origin.X, translated.Y - origin.Y);
+		}
+
 		private static TouchSource ToTouchSource(PointerPoint point)
 		{
 			switch (point.PointerDeviceType)

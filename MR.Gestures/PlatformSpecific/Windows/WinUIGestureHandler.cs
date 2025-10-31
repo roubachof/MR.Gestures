@@ -639,14 +639,14 @@ namespace MR.Gestures.WinUI
 
 			bool handled = false;
 
-			if (currentPointers.Count > 0)
-			{
-				//	Panning
+		if (currentPointers.Count > 0)
+		{
+			//	Panning
 
-				var panArgs = new WinUIPanEventArgs(view, currentPointers, deltaDistance, totalDistance, velocity);
-				if (element.GestureHandler.HandlesPanning)
-					handled = listener.OnPanning(panArgs);
-				lastPanArgs = panArgs;
+			var panArgs = new WinUIPanEventArgs(view, currentPointers, deltaDistance, totalDistance, velocity, lastPanArgs);
+			if (element.GestureHandler.HandlesPanning)
+				handled = listener.OnPanning(panArgs);
+			lastPanArgs = panArgs;
 
 				if (currentPointers.Count > 1)
 				{
